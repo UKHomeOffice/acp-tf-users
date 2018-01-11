@@ -14,15 +14,15 @@ output "dns_zone" {
 
 output "user_readonly" {
   description = "The user with readonly access"
-  value       = "${aws_iam_user.readonly.name}"
+  value       = "${aws_iam_user.readonly.*.name}"
 }
 
 output "user_tokens" {
   description = "The user with S3 tokens access"
-  value       = "${aws_iam_user.tokens.name}"
+  value       = "${aws_iam_user.tokens.*.name}"
 }
 
 output "user_admin" {
   description = "The user with admin access"
-  value       = "${aws_iam_user.admin.name}"
+  value       = "${aws_iam_user.admin.*.name}"
 }
