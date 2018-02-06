@@ -8,6 +8,11 @@ variable "create_readonly_user" {
   default     = false
 }
 
+variable "create_peering_user" {
+  description = "Create a user for acp peering permissions"
+  default     = false
+}
+
 variable "create_tokens_user" {
   description = "Create a user with access to manage a K8s tokens file in S3"
   default     = false
