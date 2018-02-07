@@ -12,6 +12,16 @@ output "dns_zone" {
   value       = "${var.dns_zone}"
 }
 
+output "user_admin" {
+  description = "The user with admin access"
+  value       = "${aws_iam_user.admin.*.name}"
+}
+
+output "user_peering" {
+  description = "The user with peering access"
+  value       = "${aws_iam_user.peering.*.name}"
+}
+
 output "user_readonly" {
   description = "The user with readonly access"
   value       = "${aws_iam_user.readonly.*.name}"
@@ -22,7 +32,3 @@ output "user_tokens" {
   value       = "${aws_iam_user.tokens.*.name}"
 }
 
-output "user_admin" {
-  description = "The user with admin access"
-  value       = "${aws_iam_user.admin.*.name}"
-}
