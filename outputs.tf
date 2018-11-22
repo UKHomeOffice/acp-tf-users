@@ -31,4 +31,3 @@ output "user_tokens" {
   description = "The user with S3 tokens access"
   value       = "${aws_iam_user.tokens.*.name}"
 }
-
