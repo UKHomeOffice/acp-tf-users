@@ -59,8 +59,8 @@ resource "aws_iam_group_policy_attachment" "peering" {
   policy_arn = "${aws_iam_policy.peering.arn}"
 }
 
-resource "aws_iam_group_policy" "peering_restrict" {
-  count  = "${length(var.access_restriction) > 0 && var.create_peering_user ? 1 : 0}"
-  group  = "${aws_iam_group.peering.name}"
-  policy = "${data.aws_iam_policy_document.admin_ip_restriction.json}"
+resource "aws_iam_group_policy_attachment" "peering_restrict" {
+  count      = "${length(var.access_restriction) > 0 && var.create_peering_user ? 1 : 0}"
+  group      = "${aws_iam_group.peering.name}"
+  policy_arn = "${aws_iam_policy.access_restriction.arn}"
 }

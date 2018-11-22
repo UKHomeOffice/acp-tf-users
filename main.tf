@@ -18,3 +18,13 @@ data "aws_iam_policy_document" "admin_ip_restriction" {
     }
   }
 }
+
+## Create a policy if required
+resource "aws_iam_policy" "access_restriction" {
+  count = "${length(var.access_restriction) > 0 ? 1 : 0}"
+
+  name        = "access-retriction"
+  description = "Places a source ip restiction on a resource"
+  path        = "/"
+  policy      = "${data.aws_iam_policy_document.admin_ip_restriction.json}"
+}
