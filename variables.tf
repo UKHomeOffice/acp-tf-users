@@ -1,5 +1,5 @@
 variable "access_restriction" {
-  description = "An array of ip networks which are permitted to us the admin role"
+  description = "An array of ip networks which are permitted to use group permissions"
   default     = []
 }
 
