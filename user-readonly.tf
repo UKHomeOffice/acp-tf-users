@@ -23,6 +23,12 @@ resource "aws_iam_group_policy_attachment" "readonly" {
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
 
+resource "aws_iam_group_policy" "readonly_restrict" {
+  count  = "${length(var.access_restriction) > 0 && var.create_readonly_user ? 1 : 0}"
+  group  = "${aws_iam_group.readonly.name}"
+  policy = "${data.aws_iam_policy_document.admin_ip_restriction.json}"
+}
+
 # Allow access for terraform to decrypt secrets and create a terraform lock file
 data "aws_iam_policy_document" "readonly_terraform_plan" {
   statement {

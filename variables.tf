@@ -1,4 +1,4 @@
-variable "admin_ip_restriction" {
+variable "access_restriction" {
   description = "An array of ip networks which are permitted to us the admin role"
   default     = []
 }
