@@ -1,3 +1,8 @@
+variable "access_restriction" {
+  description = "An array of ip networks which are permitted to use group permissions"
+  default     = []
+}
+
 variable "create_admin_user" {
   description = "Create a CI admin user"
   default     = false

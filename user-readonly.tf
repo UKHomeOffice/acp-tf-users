@@ -17,6 +17,12 @@ resource "aws_iam_group_membership" "readonly" {
   users = ["${aws_iam_user.readonly.name}"]
 }
 
+resource "aws_iam_group_policy_attachment" "readonly_restrict" {
+  count      = "${length(var.access_restriction) > 0 && var.create_readonly_user ? 1 : 0}"
+  group      = "${aws_iam_group.readonly.name}"
+  policy_arn = "${aws_iam_policy.access_restriction.arn}"
+}
+
 resource "aws_iam_group_policy_attachment" "readonly" {
   count      = "${var.create_readonly_user ? 1 : 0}"
   group      = "${aws_iam_group.readonly.name}"
