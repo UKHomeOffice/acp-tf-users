@@ -3,7 +3,8 @@
 
 | Name | Description | Default | Required |
 |------|-------------|:-----:|:-----:|
-| access_restriction | An array of ip networks which are permitted to us the admin role | `<list>` | no |
+| access_restriction | An array of ip networks which are permitted to use group permissions | `<list>` | no |
+| bucket_name_override | An override used to override the bucket name | `` | no |
 | create_admin_user | Create a CI admin user | `false` | no |
 | create_peering_user | Create a user for acp peering permissions | `false` | no |
 | create_readonly_user | Create a CI readonly user | `false` | no |
