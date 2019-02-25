@@ -23,6 +23,11 @@ variable "create_tokens_user" {
   default     = false
 }
 
+variable "bucket_name_override" {
+  description = "An override used to override the bucket name"
+  default     = ""
+}
+
 variable "dns_zone" {
   description = "The Route53 hosting zone for this cluster"
   default     = ""

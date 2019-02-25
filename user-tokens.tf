@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "tokens" {
     actions = ["s3:Get*", "s3:Put*"]
 
     resources = [
-      "arn:aws:s3:::${var.kops_state_bucket}/${var.environment}.${var.dns_zone}-assets/master/tokens.csv",
+      "arn:aws:s3:::${var.kops_state_bucket}/${var.bucket_name_override != "" ? var.bucket_name_override : var.environment}.${var.dns_zone}-assets/master/tokens.csv",
     ]
   }
 }
