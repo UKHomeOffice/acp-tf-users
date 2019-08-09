@@ -1,22 +1,22 @@
 resource "aws_iam_user" "peering" {
-  count = "${var.create_peering_user ? 1 : 0}"
+  count = var.create_peering_user ? 1 : 0
 
   name          = "acp-peering-${var.environment}"
   force_destroy = true
 }
 
 resource "aws_iam_group" "peering" {
-  count = "${var.create_peering_user ? 1 : 0}"
+  count = var.create_peering_user ? 1 : 0
 
   name = "acp-peering-${var.environment}"
 }
 
 resource "aws_iam_group_membership" "peering" {
-  count = "${var.create_peering_user ? 1 : 0}"
+  count = var.create_peering_user ? 1 : 0
 
   name  = "acp-peering-${var.environment}"
-  group = "${aws_iam_group.peering.name}"
-  users = ["${aws_iam_user.peering.name}"]
+  group = aws_iam_group.peering[0].name
+  users = [aws_iam_user.peering[0].name]
 }
 
 # Allow access for terraform to create peering
@@ -45,22 +45,23 @@ data "aws_iam_policy_document" "peering" {
 }
 
 resource "aws_iam_policy" "peering" {
-  count = "${var.create_peering_user ? 1 : 0}"
+  count = var.create_peering_user ? 1 : 0
 
   name        = "acp-peering-${var.environment}"
   description = "Allow terraform to create, accept VPC peering requests and add routing"
-  policy      = "${data.aws_iam_policy_document.peering.json}"
+  policy      = data.aws_iam_policy_document.peering.json
 }
 
 resource "aws_iam_group_policy_attachment" "peering" {
-  count = "${var.create_peering_user ? 1 : 0}"
+  count = var.create_peering_user ? 1 : 0
 
-  group      = "${aws_iam_group.peering.name}"
-  policy_arn = "${aws_iam_policy.peering.arn}"
+  group      = aws_iam_group.peering[0].name
+  policy_arn = aws_iam_policy.peering[0].arn
 }
 
 resource "aws_iam_group_policy_attachment" "peering_restrict" {
-  count      = "${length(var.access_restriction) > 0 && var.create_peering_user ? 1 : 0}"
-  group      = "${aws_iam_group.peering.name}"
-  policy_arn = "${aws_iam_policy.access_restriction.arn}"
+  count      = length(var.access_restriction) > 0 && var.create_peering_user ? 1 : 0
+  group      = aws_iam_group.peering[0].name
+  policy_arn = aws_iam_policy.access_restriction[0].arn
 }
+
