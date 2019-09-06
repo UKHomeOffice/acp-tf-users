@@ -46,3 +46,4 @@ variable "terraform_lock_table" {
   description = "The terraform bucket name used for state, required for terraform plan permissions"
   default     = ""
 }
+
