@@ -14,20 +14,20 @@ output "dns_zone" {
 
 output "user_admin" {
   description = "The user with admin access"
-  value       = aws_iam_user.admin[0].name
+  value       = length(aws_iam_user.admin) > 0 ? aws_iam_user.admin[0].name : null
 }
 
 output "user_peering" {
   description = "The user with peering access"
-  value       = aws_iam_user.peering[0].name
+  value       = length(aws_iam_user.peering) > 0 ? aws_iam_user.peering[0].name : null
 }
 
 output "user_readonly" {
   description = "The user with readonly access"
-  value       = aws_iam_user.readonly[0].name
+  value       = length(aws_iam_user.readonly) > 0 ? aws_iam_user.readonly[0].name : null
 }
 
 output "user_tokens" {
   description = "The user with S3 tokens access"
-  value       = aws_iam_user.tokens[0].name
+  value       = length(aws_iam_user.tokens) > 0 ? aws_iam_user.tokens[0].name : null
 }
