@@ -53,6 +53,16 @@ data "aws_iam_policy_document" "readonly_terraform_plan" {
       "*",
     ]
   }
+
+  statement {
+    actions = [
+      "secretsmanager:Get*"
+    ]
+
+    resources = [
+      "*",
+    ]
+  }
 }
 
 # Policy to allow terraform plan
