@@ -1,8 +1,3 @@
-terraform {
-  required_version = ">= 0.12"
-}
-
-# Provider will inherit from environment variables
 data "aws_caller_identity" "current" {
 }
 

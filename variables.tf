@@ -1,25 +1,30 @@
 variable "access_restriction" {
   description = "An array of ip networks which are permitted to use group permissions"
+  type        = list(string)
   default     = []
 }
 
 variable "create_admin_user" {
   description = "Create a CI admin user"
+  type        = bool
   default     = false
 }
 
 variable "create_readonly_user" {
   description = "Create a CI readonly user"
+  type        = bool
   default     = false
 }
 
 variable "create_peering_user" {
   description = "Create a user for acp peering permissions"
+  type        = bool
   default     = false
 }
 
 variable "create_tokens_user" {
   description = "Create a user with access to manage a K8s tokens file in S3"
+  type        = bool
   default     = false
 }
 
