@@ -23,6 +23,18 @@ variable "create_tokens_user" {
   default     = false
 }
 
+variable "create_tenants_admin_user" {
+  description = "Create a CI admin user for tenants pipelines"
+  type        = bool
+  default     = false
+}
+
+variable "create_tenants_readonly_user" {
+  description = "Create a CI readonly user for tenants pipelines"
+  type        = bool
+  default     = false
+}
+
 variable "bucket_name_override" {
   description = "An override used to override the bucket name"
   default     = ""
@@ -44,6 +56,11 @@ variable "kops_state_bucket" {
 
 variable "terraform_lock_table" {
   description = "The terraform bucket name used for state, required for terraform plan permissions"
+  default     = ""
+}
+
+variable "terraform_tenants_lock_tables" {
+  description = "A glob for the terraform bucket names used for state, required for terraform plan permissions in tenants pipeline"
   default     = ""
 }
 
