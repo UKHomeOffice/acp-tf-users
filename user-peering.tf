@@ -3,6 +3,12 @@ resource "aws_iam_user" "peering" {
 
   name          = "acp-peering-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "peering" {
@@ -64,4 +70,3 @@ resource "aws_iam_group_policy_attachment" "peering_restrict" {
   group      = aws_iam_group.peering[0].name
   policy_arn = aws_iam_policy.access_restriction[0].arn
 }
-

@@ -4,6 +4,12 @@ resource "aws_iam_user" "tokens" {
 
   name          = "acp-tokens-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 # This IAM group is to manage permissions for the tokens user
@@ -49,4 +55,3 @@ resource "aws_iam_group_policy_attachment" "tokens" {
   group      = aws_iam_group.tokens[0].name
   policy_arn = aws_iam_policy.tokens[0].arn
 }
-

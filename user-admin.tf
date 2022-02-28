@@ -3,6 +3,12 @@ resource "aws_iam_user" "admin" {
   count         = var.create_admin_user ? 1 : 0
   name          = "acp-admin-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 # Create an admin group to hold the relevant policies
@@ -29,4 +35,3 @@ resource "aws_iam_group_membership" "admin" {
   group = aws_iam_group.admin[0].name
   users = [aws_iam_user.admin[0].name]
 }
-

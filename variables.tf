@@ -64,3 +64,13 @@ variable "terraform_tenants_lock_tables" {
   default     = ""
 }
 
+variable "key_rotation" {
+  description = "Enable email notificaiton for old IAM keys"
+  default     = "true"
+}
+
+variable "email_addresses" {
+  description = "A list of email addresses for key rotation notifications"
+  type        = list(string)
+  default     = []
+}
