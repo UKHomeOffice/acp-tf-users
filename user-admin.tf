@@ -3,6 +3,12 @@ resource "aws_iam_user" "admin" {
   count         = var.create_admin_user ? 1 : 0
   name          = "acp-admin-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 # Create an admin group to hold the relevant policies
@@ -30,3 +36,9 @@ resource "aws_iam_group_membership" "admin" {
   users = [aws_iam_user.admin[0].name]
 }
 
+module "admin_self_serve_access_keys" {
+  count  = var.create_admin_user ? 1 : 0
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = ["acp-admin-${var.environment}"]
+}

@@ -4,6 +4,12 @@ resource "aws_iam_user" "tokens" {
 
   name          = "acp-tokens-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 # This IAM group is to manage permissions for the tokens user
@@ -50,3 +56,9 @@ resource "aws_iam_group_policy_attachment" "tokens" {
   policy_arn = aws_iam_policy.tokens[0].arn
 }
 
+module "token_self_serve_access_keys" {
+  count  = var.create_tokens_user ? 1 : 0
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = ["acp-tokens-${var.environment}"]
+}

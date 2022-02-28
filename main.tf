@@ -2,6 +2,10 @@ terraform {
   required_version = ">= 0.12"
 }
 
+locals {
+  email_tags = { for i, email in var.email_addresses : "email${i}" => email }
+}
+
 # Provider will inherit from environment variables
 data "aws_caller_identity" "current" {
 }

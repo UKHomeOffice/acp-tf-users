@@ -3,6 +3,12 @@ resource "aws_iam_user" "peering" {
 
   name          = "acp-peering-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "peering" {
@@ -65,3 +71,9 @@ resource "aws_iam_group_policy_attachment" "peering_restrict" {
   policy_arn = aws_iam_policy.access_restriction[0].arn
 }
 
+module "peering_self_serve_access_keys" {
+  count  = var.create_peering_user ? 1 : 0
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = ["acp-peering-${var.environment}"]
+}

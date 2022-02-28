@@ -3,6 +3,12 @@ resource "aws_iam_user" "readonly" {
   count         = var.create_readonly_user ? 1 : 0
   name          = "acp-readonly-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "readonly" {
@@ -82,3 +88,9 @@ resource "aws_iam_group_policy_attachment" "readonly_terraform_plan" {
   policy_arn = aws_iam_policy.readonly_terraform_plan[0].arn
 }
 
+module "readonly_self_serve_access_keys" {
+  count  = var.create_readonly_user ? 1 : 0
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = ["acp-readonly-${var.environment}"]
+}
