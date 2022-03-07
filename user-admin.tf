@@ -37,8 +37,7 @@ resource "aws_iam_group_membership" "admin" {
 }
 
 module "admin_self_serve_access_keys" {
-  count  = var.create_admin_user ? 1 : 0
   source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
 
-  user_names = ["acp-admin-${var.environment}"]
+  user_names = aws_iam_user.admin[0].name
 }

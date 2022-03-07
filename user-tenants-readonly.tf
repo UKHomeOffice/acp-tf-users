@@ -89,8 +89,7 @@ resource "aws_iam_group_policy_attachment" "tenants_readonly_terraform_plan" {
 }
 
 module "tenant_readonly_self_serve_access_keys" {
-  count  = var.create_tenants_readonly_user ? 1 : 0
   source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
 
-  user_names = ["drone-acp-readonly-${var.environment}-tenants"]
+  user_names = aws_iam_user.tenants_readonly[0].name
 }

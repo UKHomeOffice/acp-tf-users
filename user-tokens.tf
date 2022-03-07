@@ -57,8 +57,7 @@ resource "aws_iam_group_policy_attachment" "tokens" {
 }
 
 module "token_self_serve_access_keys" {
-  count  = var.create_tokens_user ? 1 : 0
   source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
 
-  user_names = ["acp-tokens-${var.environment}"]
+  user_names = aws_iam_user.tokens[0].name
 }

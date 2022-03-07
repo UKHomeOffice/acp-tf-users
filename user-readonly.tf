@@ -89,8 +89,7 @@ resource "aws_iam_group_policy_attachment" "readonly_terraform_plan" {
 }
 
 module "readonly_self_serve_access_keys" {
-  count  = var.create_readonly_user ? 1 : 0
   source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
 
-  user_names = ["acp-readonly-${var.environment}"]
+  user_names = aws_iam_user.readonly[0].name
 }

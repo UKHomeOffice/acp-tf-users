@@ -72,8 +72,7 @@ resource "aws_iam_group_policy_attachment" "peering_restrict" {
 }
 
 module "peering_self_serve_access_keys" {
-  count  = var.create_peering_user ? 1 : 0
   source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
 
-  user_names = ["acp-peering-${var.environment}"]
+  user_names = aws_iam_user.peering[0].name
 }
