@@ -38,3 +38,9 @@ resource "aws_iam_policy" "access_restriction" {
   path        = "/"
   policy      = data.aws_iam_policy_document.admin_ip_restriction.json
 }
+
+module "users_self_serve_access_keys" {
+  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
+
+  user_names = concat(aws_iam_user.admin[0].name, aws_iam_user.peering[0].name, aws_iam_user.readonly[0].name, aws_iam_user.tokens[0].name, aws_iam_user.tenants_admin[0].name, aws_iam_user.tenants_readonly[0].name)
+}

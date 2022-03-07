@@ -55,9 +55,3 @@ resource "aws_iam_group_policy_attachment" "tokens" {
   group      = aws_iam_group.tokens[0].name
   policy_arn = aws_iam_policy.tokens[0].arn
 }
-
-module "token_self_serve_access_keys" {
-  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
-
-  user_names = aws_iam_user.tokens[0].name
-}

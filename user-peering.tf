@@ -70,9 +70,3 @@ resource "aws_iam_group_policy_attachment" "peering_restrict" {
   group      = aws_iam_group.peering[0].name
   policy_arn = aws_iam_policy.access_restriction[0].arn
 }
-
-module "peering_self_serve_access_keys" {
-  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
-
-  user_names = aws_iam_user.peering[0].name
-}

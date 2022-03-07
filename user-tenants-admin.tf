@@ -35,9 +35,3 @@ resource "aws_iam_group_membership" "tenants_admin" {
   group = aws_iam_group.tenants_admin[0].name
   users = [aws_iam_user.tenants_admin[0].name]
 }
-
-module "tenant_admin_self_serve_access_keys" {
-  source = "git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys?ref=v0.1.0"
-
-  user_names = aws_iam_user.tenants_admin[0].name
-}
