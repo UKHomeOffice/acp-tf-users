@@ -3,6 +3,12 @@ resource "aws_iam_user" "tenants_readonly" {
   count         = var.create_tenants_readonly_user ? 1 : 0
   name          = "drone-acp-readonly-${var.environment}-tenants"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "tenants_readonly" {

@@ -3,6 +3,12 @@ resource "aws_iam_user" "tenants_admin" {
   count         = var.create_tenants_admin_user ? 1 : 0
   name          = "drone-acp-admin-${var.environment}-tenants"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 # Create an admin group to hold the relevant policies
