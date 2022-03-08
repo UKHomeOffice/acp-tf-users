@@ -3,6 +3,12 @@ resource "aws_iam_user" "peering" {
 
   name          = "acp-peering-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "peering" {

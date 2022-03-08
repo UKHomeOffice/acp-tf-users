@@ -31,3 +31,13 @@ output "user_tokens" {
   description = "The user with S3 tokens access"
   value       = length(aws_iam_user.tokens) > 0 ? aws_iam_user.tokens[0].name : null
 }
+
+output "user_tenants_admin" {
+  description = "The user with admin access (used in tenant pipelines)"
+  value       = length(aws_iam_user.tenants_admin) > 0 ? aws_iam_user.tenants_admin[0].name : null
+}
+
+output "user_tenants_readonly" {
+  description = "The user with readonly access (used in tenant pipelines)"
+  value       = length(aws_iam_user.tenants_readonly) > 0 ? aws_iam_user.tenants_readonly[0].name : null
+}

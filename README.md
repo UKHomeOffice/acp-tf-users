@@ -14,7 +14,9 @@
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_users_self_serve_access_keys"></a> [users\_self\_serve\_access\_keys](#module\_users\_self\_serve\_access\_keys) | git::https://github.com/UKHomeOffice/acp-tf-self-serve-access-keys | v0.1.0 |
 
 ## Resources
 
@@ -77,7 +79,9 @@ No modules.
 | <a name="input_create_tenants_readonly_user"></a> [create\_tenants\_readonly\_user](#input\_create\_tenants\_readonly\_user) | Create a CI readonly user for tenants pipelines | `bool` | `false` | no |
 | <a name="input_create_tokens_user"></a> [create\_tokens\_user](#input\_create\_tokens\_user) | Create a user with access to manage a K8s tokens file in S3 | `bool` | `false` | no |
 | <a name="input_dns_zone"></a> [dns\_zone](#input\_dns\_zone) | The Route53 hosting zone for this cluster | `string` | `""` | no |
+| <a name="input_email_addresses"></a> [email\_addresses](#input\_email\_addresses) | A list of email addresses for key rotation notifications | `list(string)` | `[]` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The unique environment being created e.g. dev, production etc | `any` | n/a | yes |
+| <a name="input_key_rotation"></a> [key\_rotation](#input\_key\_rotation) | Enable email notificaiton for old IAM keys | `string` | `"true"` | no |
 | <a name="input_kops_state_bucket"></a> [kops\_state\_bucket](#input\_kops\_state\_bucket) | The name of the kops state bucket (required for S3 tokens access) | `string` | `""` | no |
 | <a name="input_terraform_lock_table"></a> [terraform\_lock\_table](#input\_terraform\_lock\_table) | The terraform bucket name used for state, required for terraform plan permissions | `string` | `""` | no |
 | <a name="input_terraform_tenants_lock_tables"></a> [terraform\_tenants\_lock\_tables](#input\_terraform\_tenants\_lock\_tables) | A glob for the terraform bucket names used for state, required for terraform plan permissions in tenants pipeline | `string` | `""` | no |
@@ -91,5 +95,7 @@ No modules.
 | <a name="output_user_admin"></a> [user\_admin](#output\_user\_admin) | The user with admin access |
 | <a name="output_user_peering"></a> [user\_peering](#output\_user\_peering) | The user with peering access |
 | <a name="output_user_readonly"></a> [user\_readonly](#output\_user\_readonly) | The user with readonly access |
+| <a name="output_user_tenants_admin"></a> [user\_tenants\_admin](#output\_user\_tenants\_admin) | The user with admin access (used in tenant pipelines) |
+| <a name="output_user_tenants_readonly"></a> [user\_tenants\_readonly](#output\_user\_tenants\_readonly) | The user with readonly access (used in tenant pipelines) |
 | <a name="output_user_tokens"></a> [user\_tokens](#output\_user\_tokens) | The user with S3 tokens access |
 <!-- END_TF_DOCS -->

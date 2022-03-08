@@ -3,6 +3,12 @@ resource "aws_iam_user" "readonly" {
   count         = var.create_readonly_user ? 1 : 0
   name          = "acp-readonly-${var.environment}"
   force_destroy = true
+  tags = merge(
+    local.email_tags,
+    {
+      "key_rotation" = var.key_rotation
+    }
+  )
 }
 
 resource "aws_iam_group" "readonly" {
